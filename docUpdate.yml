@@ -1,0 +1,8 @@
+---
+- hosts: ispproject.rd.tp-link.net
+  remote_user: root
+  tasks:
+    - name: start update the document files 
+      copy: src=/home/dev/navigator/doc dest=/var/www/html/ mode=0777 backup=yes force=yes
+...
+
