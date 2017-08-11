@@ -1,0 +1,17 @@
+---
+- hosts: ispproject.rd.tp-link.net
+  remote_user: root
+  tasks:
+    - name: create backup directory
+      file: path=/tmp/backup state=directory mode=0777
+    - name: back database configuration of redmine
+      shell: mysqldump -uroot -p19921221 redmine_default | gzip > /tmp/backup/redmine_latest.sql
+    - name: backup attachment of redmine
+      archive: dest=/tmp/backup/redmine_file_latest.tar.gz path=/home/files
+    - name: copy the redmine database file to local area
+      fetch: src=/tmp/backup/redmine_latest.sql dest=/backup
+    - name: copy the attchment backup files to local area
+      fetch: src=/tmp/backup/redmine_file_latest.tar.gz dest=/backup
+    - name: delete backup files on remote host
+      file: path=/tmp/backup state=absent
+...
