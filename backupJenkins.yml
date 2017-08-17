@@ -1,0 +1,13 @@
+---
+- hosts: spjenkins.rd.tp-link.net
+  remote_user: spjenkins
+  tasks:
+    - name: change filemode of backup directories
+      file: path=/tmp/backup mode=0777
+    - name: backup tgz files
+      archive: dest=/tmp/backup/jenkins_latest.tgz path=/tmp/backup/thinBackup/* remove=True
+    - name: get remote backup file to local area
+      fetch: src=/tmp/backup/jenkins_latest.tgz  dest=/backup
+    - name: delete backup files on remote host
+      shell: rm -rf /tmp/backup/thinBackup/*
+...

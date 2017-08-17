@@ -4,12 +4,10 @@
   tasks:
     - name: create backup directory
       file: path=/tmp/backup state=directory mode=0777
-    - name: start backup rake gitlab files
-      shell: gitlab-rake gitlab:backup:create  
     - name: backup tgz files
-      archive: dest=/tmp/backup/gitlab_latest.tar.gz path=/var/opt/gitlab/backups/
-    - name: copy the redmine database file to local area
-      fetch: src=/tmp/backup/gitlab_latest.tar.gz dest=/backup
+      archive: dest=/tmp/backup/gitlab_latest.tgz path=/var/opt/gitlab/backups remove=yes
+    - name: get remote backup file to local area
+      fetch: src=/tmp/backup/gitlab_latest.tgz  dest=/backup
     - name: delete backup files on remote host
       file: path=/tmp/backup state=absent
 ...
