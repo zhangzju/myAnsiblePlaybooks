@@ -1,0 +1,41 @@
+---
+- hosts: spdocker.rd.tp-link.net
+  remote_user: spdocker
+  tasks:
+    - name: update the apt source
+      apt: update_cache=yes upgrade=yes
+    - name: install zlib1g-dev
+      apt: name=zlib1g-dev state=present
+    - name: install uuid-dev
+      apt: name=uuid-dev state=present
+    - name: install libmnl-dev
+      apt: name=libmnl-dev state=present
+    - name: install gcc
+      apt: name=gcc state=present
+    - name: install make
+      apt: name=make state=present
+    - name: install git
+      apt: name=git state=present
+    - name: install autoconf
+      apt: name=autoconf state=present
+    - name: install autoconf-archive
+      apt: name=autoconf-archive state=present
+    - name: install autogen
+      apt: name=autogen state=present
+    - name: install automake
+      apt: name=automake state=present
+    - name: install pkg-config
+      apt: name=pkg-config state=present    
+    - name: install curl
+      apt: name=curl state=present 
+    - name: install docker.io
+      apt: name=docker.io state=present 
+    - name: refresh the dir
+      file: path=/home/netdata state=absent
+    - name: touch the directory again
+      file: path=/home/netdata state=directory mode=0777
+    - name: unpack the netdata file
+      unarchive: src=/tmp/netdata.tar.gz dest=/home/netdata
+    - name: start the netdata program
+      shell: chdir=/home/netdata/netdata ./netdata-installer.sh >> install.log
+...
