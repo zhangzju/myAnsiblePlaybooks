@@ -2,8 +2,8 @@
 - hosts: spcodes.rd.tp-link.net
   remote_user: spcodes
   tasks:
-    - name: backup tgz files
-      archive: dest=/tmp/backup/gitlab_latest.tgz path=/var/opt/gitlab/backups remove=yes
+    # - name: backup tgz files
+    #   archive: dest=/tmp/backup/gitlab_latest.tgz path=/var/opt/gitlab/backups remove=yes
     - name: get remote backup file to local area
       fetch: src=/tmp/backup/gitlab_latest.tgz  dest=/backup
     - name: delete backup files on remote host
