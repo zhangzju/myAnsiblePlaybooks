@@ -1,0 +1,7 @@
+---
+- hosts: spcodes.rd.tp-link.net
+  remote_user: spcodes
+  tasks:
+    - name: archive configuration files to tmp
+      fetch: src=/etc/gitlab/gitlab.rb  dest=/backup
+...
