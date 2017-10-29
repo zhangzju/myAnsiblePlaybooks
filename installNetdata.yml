@@ -1,7 +1,0 @@
----
-- hosts: spjenkins.rd.tp-link.net
-  remote_user: spjenkins
-  tasks:
-    - name: copy netdata files to remote host
-      copy: src=/home/zhangwei/workspace/netdata  dest=/home/spjenkins/netdata mode=0777 backup=yes force=yes
-...
